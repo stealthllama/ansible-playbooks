@@ -1,6 +1,7 @@
 - name: Check the firewall
   hosts: all
   tasks:
+  - name: Look for pending jobs
     panos_check:
       ip_address: '{{ ip_address }}'
       api_kay: '{{ api_key }}'
