@@ -1,5 +1,5 @@
 - name: Check the firewall
-  hosts: 'my-firewall'
+  hosts: all
   tasks:
     panos_check:
       ip_address: '{{ ip_address }}'
