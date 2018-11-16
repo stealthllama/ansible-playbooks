@@ -1,5 +1,7 @@
 - name: Check the firewall
   hosts: all
+  connection: local
+  
   tasks:
   - name: Look for pending jobs
     panos_check:
