@@ -1,0 +1,9 @@
+# check device 10 times, every 30 seconds
+- name: Wait until ready
+  panos_check:
+    ip_address: "{{ ip_address }}"
+    api_kay: "{{ api_key }}"
+  register: result
+  until: not result|failed
+  retries: 10
+  delay: 30
