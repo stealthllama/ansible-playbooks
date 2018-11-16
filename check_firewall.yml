@@ -1,5 +1,7 @@
 - name: Wait until ready
-  panos_check:
-    ip_address: "{{ ip_address }}"
-    api_kay: "{{ api_key }}"
+  hosts: 'my-firewall'
+  tasks:
+    panos_check:
+      ip_address: "{{ ip_address }}"
+      api_kay: "{{ api_key }}"
 
