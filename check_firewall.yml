@@ -1,10 +1,7 @@
-- roles:
-    - role: PaloAltoNetworks.paloaltonetworks
-
-- name: Wait until ready
+- name: Check the firewall
   hosts: 'my-firewall'
   tasks:
     panos_check:
-      ip_address: "{{ ip_address }}"
-      api_kay: "{{ api_key }}"
+      ip_address: '{{ ip_address }}'
+      api_kay: '{{ api_key }}'
 
