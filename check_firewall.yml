@@ -6,5 +6,5 @@
   - name: Look for pending jobs
     panos_check:
       ip_address: '{{ ip_address }}'
-      api_kay: '{{ api_key }}'
-
+      username: '{{ username }}'
+      password: '{{ password }}'
