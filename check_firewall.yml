@@ -1,4 +1,3 @@
-# check device 10 times, every 30 seconds
 - name: Wait until ready
   panos_check:
     ip_address: "{{ ip_address }}"
