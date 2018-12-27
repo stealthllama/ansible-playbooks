@@ -3,7 +3,8 @@
   hosts: all
   connection: local
   gather_facts: False
-
+  
+  tasks:
   - name: create an address object
     panos_address_object:
       ip_address: '{{ ip_address }}'
