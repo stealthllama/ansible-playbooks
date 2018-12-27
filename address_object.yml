@@ -3,10 +3,7 @@
   hosts: all
   connection: local
   gather_facts: False
-  
-  roles:
-    - role: paloaltonetworks.paloaltonetworks
-  
+    
   tasks:
   - name: create an address object
     panos_address_object:
