@@ -2,9 +2,6 @@
   hosts: all
   connection: local
   
-  roles:
-    - role: PaloAltoNetworks.paloaltonetworks
-  
   tasks:
   - name: Look for pending jobs
     panos_check:
