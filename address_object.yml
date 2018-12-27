@@ -4,6 +4,9 @@
   connection: local
   gather_facts: False
   
+  roles:
+    - role: PaloAltoNetworks.paloaltonetworks
+  
   tasks:
   - name: create an address object
     panos_address_object:
