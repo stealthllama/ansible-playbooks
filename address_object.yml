@@ -5,7 +5,7 @@
   gather_facts: False
   
   roles:
-    - role: PaloAltoNetworks.paloaltonetworks
+    - role: paloaltonetworks.paloaltonetworks
   
   tasks:
   - name: create an address object
