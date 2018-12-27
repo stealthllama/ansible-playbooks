@@ -1,2 +1,2 @@
-# from galaxy
-- src: PaloAltoNetworks.paloaltonetworks
+# Install requirements from Galaxy
+- src: paloaltonetworks.paloaltonetworks
