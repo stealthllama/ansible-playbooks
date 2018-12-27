@@ -1,0 +1,15 @@
+---
+- name: Add objects to firewall
+  hosts: all
+  connection: local
+  gather_facts: False
+
+  - name: create an address object
+    panos_address_object:
+      ip_address: '{{ ip_address }}'
+      api_key: '{{ api_key }}'
+      name: '{{ object_name }}'
+      value: '{{ object_value }}'
+      description: '{{ object_description }}'
+      state: 'present'
+      commit: False
