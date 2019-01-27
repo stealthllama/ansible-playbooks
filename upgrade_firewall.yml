@@ -1,0 +1,22 @@
+---
+- name: Upgrade the firewall
+  hosts: all
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: PaloAltoNetworks.paloaltonetworks
+
+  tasks:
+  - name: Upgrade PAN-OS and restart
+    panos_software:
+      ip_address: '{{ fw_ip_address }}'
+      username: '{{ fw_username }}'
+      password: '{{ fw_password }}'
+      version: '{{ fw_version }}'
+      restart: '{{ fw_restart }'
+    register: upgrade_result
+  
+  - name: Display the current firewall version
+    debug:
+      var: upgrade_result.version
