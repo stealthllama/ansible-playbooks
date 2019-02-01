@@ -1,5 +1,5 @@
 ---
-- name: Add security rule to firewall
+- name: Modify a PAN-OS security rule
   hosts: all
   connection: local
   gather_facts: False
@@ -8,7 +8,7 @@
     - role: PaloAltoNetworks.paloaltonetworks
 
   tasks:
-  - name: add a security rule
+  - name: Process the rule
     panos_security_rule:
       ip_address: '{{ ip_address }}'
       api_key: '{{ api_key }}'
@@ -26,3 +26,14 @@
       action: '{{ rule_action }}'
       state: '{{ rule_state }}'
       commit: False
+      
+  - name: Update the ServiceNow request
+    snow_record:
+      username: '{{ snow_user }}'
+      password: '{{ snow_password }}'
+      instance: '{{ snow_instance }}'
+      table: '{{ snow_table }}'
+      number: '{{ snow_request }}'
+      state: present
+      data:
+        state: Closed Complete
