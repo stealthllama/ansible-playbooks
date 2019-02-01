@@ -19,7 +19,6 @@
       source_ip: ['{{ rule_source_ip }}']
       source_user: ['{{ rule_source_user }}']
       destination_ip: ['{{ rule_destination_ip }}']
-      category: ['{{ rule_url_category }}']
       application: ['{{ rule_application }}']
       service: ['{{ rule_service }}']
       hip_profiles: ['{{ rule_hip_profile }}']
