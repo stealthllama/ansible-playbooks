@@ -32,7 +32,7 @@
   handlers:
   - name: Update the ServiceNow request
     snow_record:
-      username: '{{ snow_user }}'
+      username: '{{ snow_username }}'
       password: '{{ snow_password }}'
       instance: '{{ snow_instance }}'
       table: '{{ snow_table }}'
