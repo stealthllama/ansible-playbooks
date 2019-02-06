@@ -25,14 +25,17 @@
       action: '{{ rule_action }}'
       state: '{{ rule_state }}'
       commit: False
-      
-#  - name: Update the ServiceNow request
-#    snow_record:
-#      username: '{{ snow_user }}'
-#      password: '{{ snow_password }}'
-#      instance: '{{ snow_instance }}'
-#      table: '{{ snow_table }}'
-#      number: '{{ snow_request }}'
-#      state: present
-#      data:
-#        state: Closed Complete
+    notify: 
+      - Update the ServiceNow request
+  
+  handlers:
+  - name: Update the ServiceNow request
+    snow_record:
+      username: '{{ snow_user }}'
+      password: '{{ snow_password }}'
+      instance: '{{ snow_instance }}'
+      table: '{{ snow_table }}'
+      number: '{{ snow_request }}'
+      state: present
+      data:
+        state: Closed Complete
