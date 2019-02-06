@@ -3,6 +3,7 @@
   hosts: all
   connection: local
   gather_facts: False
+  any_errors_fatal: true
 
   roles:
     - role: PaloAltoNetworks.paloaltonetworks
@@ -26,10 +27,7 @@
       action: '{{ rule_action }}'
       state: '{{ rule_state }}'
       commit: False
-    notify: 
-      - Update the ServiceNow request
   
-  handlers:
   - name: Update the ServiceNow request
     snow_record:
       username: '{{ snow_username }}'
