@@ -1,0 +1,17 @@
+---
+- name: License and upgrade the firewall
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+  
+    - name: Retrieve and apply firewall license
+      panos_lic:
+        ip_address: '{{ ip_address }}'
+        password: '{{ password }}'
+        auth_code: '{{ fw_authcode }}'
+      register: result
+     
+    - name: Display serialnumber (if already registered)
+      debug:
+        var: "{{result.serialnumber}}"
