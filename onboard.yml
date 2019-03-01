@@ -9,9 +9,9 @@
 
   - name: Add the firewall to Panorama
     panos_onboard:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password }}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password }}'
       serialnum: '{{ serialnum }}'
       devicegroup: '{{ devicegroup }}'
       templatestack: '{{ templatestack }}'
@@ -23,16 +23,16 @@
   #
   #  - name: License the firewall
   #    panos_op:
-  #      ip_address: '{{ pano_address}}'
-  #      username: '{{ pano_admin }}'
-  #      password: '{{ pano_password}}'
+  #      ip_address: '{{ ip_address}}'
+  #      username: '{{ username }}'
+  #      password: '{{ password}}'
   #      cmd: 'request batch license activate authcodes {{ authcode }} devices {{ serialnum }}'
 
   - name: Refresh the firewall license
     panos_op:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password}}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
       cmd: 'request batch license refresh devices "{{ serialnum }}"'
 
   #
@@ -40,26 +40,26 @@
   #
   - name: Refresh the content list on Panorama
     panos_op:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password}}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
       cmd: '<request><batch><content><check/></content></batch></request>'
       cmd_is_xml: True
 
   - name: Download the content update to Panorama
     panos_op:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password}}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
       cmd: '<request><batch><content><download><file>{{ content_update }}</file></download></content></batch></request>'
       cmd_is_xml: True
     when: content_update is defined
 
   - name: Waiting for content update download
     panos_check:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password }}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password }}'
     register: result
     until: result is not failed
     retries: 120
@@ -68,18 +68,18 @@
 
   - name: Install the content update to the firewall
     panos_op:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password}}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
       cmd: '<request><batch><software><upload-install><file>{{ content_update }}</file><devices>{{ serialnum }}</devices></upload-install></software></batch></request>'
       cmd_is_xml: True
     when: content_update is defined
 
   - name: Waiting for content update upload and installation to complete
     panos_check:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password }}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password }}'
     register: result
     until: result is not failed
     retries: 120
@@ -91,32 +91,32 @@
   #
   - name: Refresh the firewall software list on Panorama
     panos_op:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password}}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
       cmd: 'request batch software check'
 
   - name: Download the firewall software (major release) to Panorama
     panos_op:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password}}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
       cmd: 'request batch software download file {{ swimage_major }}'
     when: swimage_major is defined
 
   - name: Download the firewall software (minor release) to Panorama
     panos_op:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password}}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
       cmd: 'request batch software download file {{ swimage_minor }}'
     when: {{ swimage_minor }} is defined
 
   - name: Waiting for software download
     panos_check:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password }}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password }}'
     register: result
     until: result is not failed
     retries: 120
@@ -124,27 +124,27 @@
 
   - name: Upload the software (major release) to the firewall
     panos_op:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password}}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
       cmd: '<request><batch><software><upload><file>{{ swimage_major }}</file><devices>{{ serialnum }}</devices></upload></software></batch></request>'
       cmd_is_xml: True
     when: swimage_major is defined
 
   - name: Upload the software (minor release) to the firewall
     panos_op:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password}}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
       cmd: '<request><batch><software><upload><file>{{ swimage_minor }}</file><devices>{{ serialnum }}</devices></upload></software></batch></request>'
       cmd_is_xml: True
     when: swimage_minor is defined
 
   - name: Waiting for software upload to complete
     panos_check:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password }}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password }}'
     register: result
     until: result is not failed
     retries: 120
@@ -155,18 +155,18 @@
   #
   - name: Install the software (major release) to the firewall
     panos_op:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password}}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
       cmd: '<request><batch><software><install><file>{{ swimage_major }}</file><devices>{{ serialnum }}</devices></install></software></batch></request>'
       cmd_is_xml: True
     when: swimage_major is defined and swimage_minor is not defined
 
   - name: Waiting for software (major release) installation to complete
     panos_check:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password }}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password }}'
     register: result
     until: result is not failed
     retries: 120
@@ -179,18 +179,18 @@
   #
   - name: Install the software (minor release) to the firewall
     panos_op:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password}}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
       cmd: '<request><batch><software><install><file>{{ swimage_minor }}</file><devices>{{ serialnum }}</devices></install></software></batch></request>'
       cmd_is_xml: True
     when: swimage_major is defined and swimage_minor is defined
 
   - name: Waiting for software (minor release) installation to complete
     panos_check:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password }}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password }}'
     register: result
     until: result is not failed
     retries: 120
@@ -202,9 +202,9 @@
   #
   - name: Reboot the firewall to complete the installation
     panos_op:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password}}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
       cmd: '<request><batch><reboot><devices>{{ serialnum }}</devices></reboot></batch></request>'
       cmd_is_xml: True
 
@@ -214,9 +214,9 @@
 
   - name: Waiting for the firewall to reconnect to Panorama
     panos_devices:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password }}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password }}'
       only_connected: True
     register: result
     retries: 120
@@ -228,9 +228,9 @@
   #
   - name: Commit to Panorama and push the devicegroup and templatestack configs to the firewall
     panos_commit:
-      ip_address: '{{ pano_address}}'
-      username: '{{ pano_admin }}'
-      password: '{{ pano_password}}'
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
       devicegroup: '{{ devicegroup }}'
       include_template: True
       devices: '{{ serialnum }}'
