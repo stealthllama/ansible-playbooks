@@ -210,7 +210,7 @@
 
   - name: Waiting for the reboot to get underway
     pause:
-      seconds: 60
+      seconds: 30
 
   - name: Waiting for the firewall to reconnect to Panorama
     panos_devices:
@@ -222,6 +222,10 @@
     retries: 120
     delay: 10
     until: serialnum in result.devices
+
+  - name: Waiting for the autocommit to complete
+    pause:
+      seconds: 30
 
   #
   # Push the DeviceGroup and Template configs
