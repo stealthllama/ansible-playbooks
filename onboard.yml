@@ -21,12 +21,12 @@
 # Activate the auth code on the firewall appliance
 #
   
-  # - name: License the firewall
-  #   panos_op:
-  #     ip_address: '{{ ip_address}}'
-  #     username: '{{ username }}'
-  #     password: '{{ password}}'
-  #     cmd: 'request batch license activate authcodes {{ authcode }} devices {{ serialnum }}'
+  - name: License the firewall
+    panos_op:
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
+      cmd: 'request batch license activate authcodes {{ authcode }} devices {{ serialnum }}'
 
   - name: Refresh the firewall license
     panos_op:
@@ -236,7 +236,7 @@
     until: result is not failed
     retries: 120
     delay: 10
-    
+
 #
 # Push the DeviceGroup and Template configs
 #
