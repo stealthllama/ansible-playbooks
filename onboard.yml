@@ -19,14 +19,14 @@
 
   #
   # Activate the auth code on the firewall appliance
-  # (only supported on hardware appliances, not VM-Series)
   #
-  #  - name: License the firewall
-  #    panos_op:
-  #      ip_address: '{{ ip_address}}'
-  #      username: '{{ username }}'
-  #      password: '{{ password}}'
-  #      cmd: 'request batch license activate authcodes {{ authcode }} devices {{ serialnum }}'
+  
+  - name: License the firewall
+    panos_op:
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password}}'
+      cmd: 'request batch license activate authcodes {{ authcode }} devices {{ serialnum }}'
 
   - name: Refresh the firewall license
     panos_op:
