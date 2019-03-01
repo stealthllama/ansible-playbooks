@@ -227,6 +227,16 @@
     pause:
       seconds: 30
 
+  - name: Waiting for the auto-commit to complete
+    panos_check:
+      ip_address: '{{ ip_address}}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+    register: result
+    until: result is not failed
+    retries: 120
+    delay: 10
+    
 #
 # Push the DeviceGroup and Template configs
 #
