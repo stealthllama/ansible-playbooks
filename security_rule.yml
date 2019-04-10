@@ -6,7 +6,7 @@
   any_errors_fatal: true
 
   roles:
-    - role: PaloAltoNetworks.paloaltonetworks
+    - role: paloaltonetworks.paloaltonetworks
 
   tasks:
   - name: Process the rule
