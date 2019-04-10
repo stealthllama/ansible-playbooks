@@ -13,6 +13,8 @@
     panos_security_rule:
       ip_address: '{{ ip_address }}'
       api_key: '{{ api_key }}'
+      devicegroup: '{{ rule_devicegroup }}'
+      rulebase: '{{ rule_rulebase }}'
       rule_name: '{{ rule_name }}'
       description: '{{ rule_description }}'
       source_zone: ['{{ rule_source_zone }}']
