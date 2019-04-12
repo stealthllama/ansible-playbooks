@@ -26,6 +26,8 @@
       service: ['{{ rule_service }}']
       category: ['{{ rule_category }}']
       action: '{{ rule_action }}'
+      group_profile: '{{ rule_secprofile }}'
+      log_setting: '{{ rule_logprofile }}'
       state: '{{ rule_state }}'
       commit: False
   
