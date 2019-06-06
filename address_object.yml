@@ -4,14 +4,19 @@
   connection: local
   gather_facts: False
   
+  vars:
+    credentials:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+      
   roles:
   - role: PaloAltoNetworks.paloaltonetworks
     
   tasks:
   - name: create an address object
     panos_address_object:
-      ip_address: '{{ ip_address }}'
-      api_key: '{{ api_key }}'
+      provider: '{{ credentials }}'
       name: '{{ object_name }}'
       value: '{{ object_value }}'
       description: '{{ object_description }}'
