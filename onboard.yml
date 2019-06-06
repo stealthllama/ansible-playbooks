@@ -3,15 +3,20 @@
   hosts: all
   connection: local
   gather_facts: no
+  
+  vars:
+    credentials:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+      
   roles:
   - role: PaloAltoNetworks.paloaltonetworks
   tasks:
 
   - name: Add the firewall to Panorama
     panos_onboard:
-      ip_address: '{{ ip_address}}'
-      username: '{{ username }}'
-      password: '{{ password }}'
+      provider: '{{ credentials }}'
       serialnum: '{{ serialnum }}'
       devicegroup: '{{ devicegroup }}'
       templatestack: '{{ templatestack }}'
