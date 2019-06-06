@@ -5,14 +5,19 @@
   gather_facts: False
   any_errors_fatal: true
 
+  vars:
+    credentials:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+      
   roles:
     - role: paloaltonetworks.paloaltonetworks
 
   tasks:
   - name: Process the rule
     panos_security_rule:
-      ip_address: '{{ ip_address }}'
-      api_key: '{{ api_key }}'
+      provider: '{{ credentials }}'
       device_group: '{{ rule_devicegroup }}'
       rule_name: '{{ rule_name }}'
       description: '{{ rule_description }}'
