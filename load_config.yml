@@ -1,0 +1,24 @@
+---
+- name: Modify a PAN-OS security rule
+  hosts: all
+  connection: local
+  gather_facts: False
+  any_errors_fatal: true
+
+  vars:
+    credentials:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+    xml_snippet: "{{ lookup('template', '{{ template_file }}') }}"
+      
+  roles:
+    - role: paloaltonetworks.paloaltonetworks
+
+  tasks:
+  - name: Process the configuration snippet
+    panos_type_cmd:
+      provider: '{{ credentials }}'
+      cmd: 'set'
+      xpath: '{{ xpath }}'
+      element: '{{ xml_snippet }}'
