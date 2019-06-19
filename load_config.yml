@@ -10,7 +10,7 @@
       ip_address: '{{ ip_address }}'
       username: '{{ username }}'
       password: '{{ password }}'
-    xml_snippet: "{{ lookup('template', '{{ template_file }}') }}"
+    xml_snippet: "{{ lookup('template', 'templates/{{ template_file }}') }}"
       
   roles:
     - role: paloaltonetworks.paloaltonetworks
