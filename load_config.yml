@@ -17,10 +17,10 @@
   - name: Pull the latest templates
     git:
       repo: 'https://github.com/PaloAltoNetworks/iron-skillet.git'
-      dest: '{{ role_path }}/files'
+      dest: '{{ playbook_dir }}/files'
       
   - name: Push the configuration snippet
-    var:
+    vars:
       xml_snippet: "{{ lookup('template', 'files/templates/panorama/snippets/{{ snippet_file }}') }}"
     panos_type_cmd:
       provider: '{{ credentials }}'
