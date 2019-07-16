@@ -17,7 +17,7 @@
   - name: Pull the latest templates
     git:
       repo: https://github.com/PaloAltoNetworks/iron-skillet.git
-      dest: {{ role_dir }}/files
+      dest: {{ role_path }}/files
       
   - name: Push the configuration snippet
     var:
