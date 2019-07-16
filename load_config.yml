@@ -18,6 +18,7 @@
     git:
       repo: 'https://github.com/PaloAltoNetworks/iron-skillet.git'
       dest: '{{ playbook_dir }}/files'
+      version: 'panos_v9.0'
       
   - name: Push the configuration snippet
     vars:
