@@ -3,20 +3,25 @@
   hosts: all
   connection: local
   gather_facts: False
-  any_errors_fatal: true
 
   vars:
     credentials:
       ip_address: '{{ ip_address }}'
       username: '{{ username }}'
       password: '{{ password }}'
-    xml_snippet: "{{ lookup('template', 'snippets/{{ snippet_file }}') }}"
       
   roles:
     - role: paloaltonetworks.paloaltonetworks
 
   tasks:
+  - name: Pull the latest templates
+    git:
+      repo: https://github.com/PaloAltoNetworks/iron-skillet.git
+      dest: {{ role_dir }}/files
+      
   - name: Push the configuration snippet
+    var:
+      xml_snippet: "{{ lookup('template', 'files/templates/panorama/snippets/{{ snippet_file }}') }}"
     panos_type_cmd:
       provider: '{{ credentials }}'
       cmd: 'set'
