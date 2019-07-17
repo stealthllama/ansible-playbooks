@@ -79,7 +79,7 @@
   - name: shared_tag
     vars:
       snippet_file: "tag.xml"
-      snippet_xpath: "/config/devices/entry[@name='localhost.localdomain']/log-collector-group"
+      snippet_xpath: "/config/shared/tag"
       snippet_xml: "{{ lookup('template', '{{ snippet_dir }}/{{ snippet_file }}') }}"
     panos_type_cmd:
       provider: '{{ credentials }}'
