@@ -10,6 +10,7 @@
       username: '{{ username }}'
       password: '{{ password }}'
     snippet_dir: 'files/templates/panorama/snippets'
+    template_version: 'panos_v9.0'
       
   roles:
     - role: paloaltonetworks.paloaltonetworks
