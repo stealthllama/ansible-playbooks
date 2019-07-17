@@ -21,6 +21,8 @@
       repo: 'https://github.com/PaloAltoNetworks/iron-skillet.git'
       dest: '{{ playbook_dir }}/files'
       version: '{{ template_version }}'
+    tags:
+    - always
       
   - name: panorama_system
     vars:
