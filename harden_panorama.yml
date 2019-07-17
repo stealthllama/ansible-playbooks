@@ -429,7 +429,7 @@
 
   - name: report_group_simple
     vars:
-      snippet_file: "reports_simple.xml"
+      snippet_file: "report_group_simple.xml"
       snippet_xpath: "/config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='{{ DEVICE_GROUP }}']/report-group"
       snippet_xml: "{{ lookup('template', '{{ snippet_dir }}/{{ snippet_file }}') }}"
     panos_type_cmd:
