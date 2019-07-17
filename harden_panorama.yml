@@ -117,7 +117,7 @@
 
   - name: device_setting
     vars:
-      snippet_file: "device_system_shared.xml"
+      snippet_file: "device_setting.xml"
       snippet_xpath: "/config/devices/entry[@name='localhost.localdomain']/template/entry[@name='iron-skillet']/config/devices/entry[@name='localhost.localdomain']/deviceconfig/setting"
       snippet_xml: "{{ lookup('template', '{{ snippet_dir }}/{{ snippet_file }}') }}"
     panos_type_cmd:
