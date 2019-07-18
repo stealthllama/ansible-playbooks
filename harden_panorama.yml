@@ -10,6 +10,7 @@
       username: '{{ username }}'
       password: '{{ password }}'
     snippet_dir: 'files/templates/panorama/snippets'
+    template_version: 'panos_v9.0'
       
   roles:
     - role: paloaltonetworks.paloaltonetworks
@@ -20,6 +21,8 @@
       repo: 'https://github.com/PaloAltoNetworks/iron-skillet.git'
       dest: '{{ playbook_dir }}/files'
       version: '{{ template_version }}'
+    tags:
+    - always
       
   - name: panorama_system
     vars:
@@ -76,7 +79,7 @@
   - name: shared_tag
     vars:
       snippet_file: "tag.xml"
-      snippet_xpath: "/config/devices/entry[@name='localhost.localdomain']/log-collector-group"
+      snippet_xpath: "/config/shared/tag"
       snippet_xml: "{{ lookup('template', '{{ snippet_dir }}/{{ snippet_file }}') }}"
     panos_type_cmd:
       provider: '{{ credentials }}'
@@ -114,7 +117,7 @@
 
   - name: device_setting
     vars:
-      snippet_file: "device_system_shared.xml"
+      snippet_file: "device_setting.xml"
       snippet_xpath: "/config/devices/entry[@name='localhost.localdomain']/template/entry[@name='iron-skillet']/config/devices/entry[@name='localhost.localdomain']/deviceconfig/setting"
       snippet_xml: "{{ lookup('template', '{{ snippet_dir }}/{{ snippet_file }}') }}"
     panos_type_cmd:
@@ -426,7 +429,7 @@
 
   - name: report_group_simple
     vars:
-      snippet_file: "reports_simple.xml"
+      snippet_file: "report_group_simple.xml"
       snippet_xpath: "/config/devices/entry[@name='localhost.localdomain']/device-group/entry[@name='{{ DEVICE_GROUP }}']/report-group"
       snippet_xml: "{{ lookup('template', '{{ snippet_dir }}/{{ snippet_file }}') }}"
     panos_type_cmd:
