@@ -1,0 +1,17 @@
+
+---
+- name: Harden Panorama with Iron Skillet templates
+  hosts: all
+  connection: local
+  gather_facts: False
+
+  vars:
+    credentials:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+    device_type: 'panorama'
+    template_version: 'panos_v9.0'
+      
+  roles:
+    - role: stealthllama.spatula
