@@ -1,5 +1,5 @@
 ---
-- name: Load a PAN-OS configuration snippet
+- name: Load a PAN-OS configuration from XML
   hosts: all
   connection: local
   gather_facts: False
@@ -9,20 +9,16 @@
       ip_address: '{{ ip_address }}'
       username: '{{ username }}'
       password: '{{ password }}'
+  vars_files:
+    - my_vars.yml
       
   roles:
     - role: paloaltonetworks.paloaltonetworks
 
-  tasks:
-  - name: Pull the latest templates
-    git:
-      repo: 'https://github.com/PaloAltoNetworks/iron-skillet.git'
-      dest: '{{ playbook_dir }}/files'
-      version: 'panos_v9.0'
-      
+  tasks:      
   - name: Push the configuration snippet
     vars:
-      xml_snippet: "{{ lookup('template', 'files/templates/panorama/snippets/{{ snippet_file }}') }}"
+      xml_snippet: "{{ lookup('template', '{{ playbook_dir }}/files/my_config.xml') }}"
     panos_type_cmd:
       provider: '{{ credentials }}'
       cmd: 'set'
