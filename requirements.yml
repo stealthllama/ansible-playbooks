@@ -1,0 +1,2 @@
+# Load ansible-pan from Galaxy
+- src: paloaltonetworks.paloaltonetworks
