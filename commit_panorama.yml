@@ -1,0 +1,23 @@
+---
+- name: Commit and device_group and template on Panorama
+  hosts: all
+  connection: local
+  gather_facts: False
+  any_errors_fatal: true
+
+  vars:
+    credentials:
+      ip_address: "{{ ip_address }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+
+  roles:
+    - role: paloaltonetworks.paloaltonetworks
+
+  tasks:
+    - name: Panorma commit
+      panos_commit:
+        provider: "{{ credentials }}"
+        device_group: "{{device_group }}"
+        include_template: "{{ include_template }}"
+        # admins: ['apiadmin','admin']
