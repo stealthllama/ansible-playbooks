@@ -7,16 +7,21 @@
 
   vars:
     credentials:
+      ip_address: "{{ ip_address }}"
+      username: "{{ username }"
+      password: "{{ password }}"
 
   roles:
     - role: paloaltonetworks.paloaltonetworks
 
   tasks:
-    - name: Panorma commit
+    - name: Get Panorama devices
+      panos_devices:
+        provider: "{{ credentials }}"
+
+    - name: Panorama commit
       panos_commit:
-        ip_address: "{{ ip_address }}"
-        username: "{{ username }}"
-        password: "{{ password }}"
+        provider: "{{ credentials }}"
         device_group: "{{device_group }}"
         include_template: "{{ include_template }}"
         # admins: ['apiadmin','admin']
