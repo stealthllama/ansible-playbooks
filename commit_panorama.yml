@@ -27,5 +27,5 @@
     - name: full commit
       panos_op:
         provider: "{{ credentials }}"
-        cmd: "commit-all shared-policy include-template yes force-template-values yes description Ansible device-group 'Lab Firewalls' devices 007255000066625"
+        cmd: "commit-all shared-policy include-template yes force-template-values yes description Ansible device-group 'Lab Template' devices 007255000066625"
       register: result
