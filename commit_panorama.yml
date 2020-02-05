@@ -14,9 +14,9 @@
     - role: paloaltonetworks.paloaltonetworks
 
   tasks:
-    - name: Get Panorama devices
-      panos_devices:
-        provider: "{{ credentials }}"
+    # - name: Get Panorama devices
+    #   panos_devices:
+    #     provider: "{{ credentials }}"
 
     # - name: Panorama commit
     #   panos_commit:
