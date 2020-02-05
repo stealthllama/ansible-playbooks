@@ -14,20 +14,29 @@
     - role: paloaltonetworks.paloaltonetworks
 
   tasks:
-    # - name: Get Panorama devices
-    #   panos_devices:
-    #     provider: "{{ credentials }}"
+    - name: Get Panorama devices
+      panos_devices:
+        provider: "{{ credentials }}"
 
     # - name: Panorama commit
     #   panos_commit:
     #     provider: "{{ credentials }}"
     #     device_group: "{{ device_group }}"
     #     include_template: "{{ include_template }}"
-    #     # admins: ['{{ admin }}']
-    - name: full commit
-      panos_op:
+
+    # - name: full commit
+    #   panos_op:
+    #     provider: "{{ credentials }}"
+    #     cmd: "<commit-all><shared-policy><include-template>yes</include-template><force-template-values>yes</force-template-values><description>Ansible</description><device-group><entry name='Lab Firewalls'><devices><entry name='007255000066625'/></devices></entry></device-group></shared-policy></commit-all>"
+    #     cmd_is_xml: true
+    #   register: result
+    - name: retrieve api_key
+      panos_api_key:
         provider: "{{ credentials }}"
-        # cmd: "commit-all shared-policy include-template yes force-template-values yes description Ansible device-group 'Lab Firewalls' devices 007255000066625"
-        cmd: "<commit-all><shared-policy><include-template>yes</include-template><force-template-values>yes</force-template-values><description>Ansible</description><device-group><entry name='Lab Firewalls'><devices><entry name='007255000066625'/></devices></entry></device-group></shared-policy></commit-all>"
-        cmd_is_xml: true
-      register: result
+      register: auth
+
+    - name: Commit via URI
+      uri:
+        url: "https://{{ ip_address }}/api?key={{ auth.api_key }}&type=commit&action=all&cmd=<commit-all><shared-policy><include-template>yes</include-template><force-template-values>yes</force-template-values><description>Ansible</description><device-group><entry name='Lab Firewalls'><devices><entry name='007255000066625'/></devices></entry></device-group></shared-policy></commit-all>"
+        method: POST
+        validate_certs: no
