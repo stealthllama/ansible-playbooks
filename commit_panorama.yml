@@ -3,7 +3,6 @@
   hosts: all
   connection: local
   gather_facts: False
-  any_errors_fatal: true
 
   vars:
     credentials:
@@ -15,9 +14,9 @@
     - role: paloaltonetworks.paloaltonetworks
 
   tasks:
-    - name: Get Panorama devices
-      panos_devices:
-        provider: "{{ credentials }}"
+    # - name: Get Panorama devices
+    #   panos_devices:
+    #     provider: "{{ credentials }}"
 
     - name: Panorama commit
       panos_commit:
