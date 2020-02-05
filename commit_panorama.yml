@@ -8,7 +8,7 @@
   vars:
     credentials:
       ip_address: "{{ ip_address }}"
-      username: "{{ username }"
+      username: "{{ username }}"
       password: "{{ password }}"
 
   roles:
@@ -22,6 +22,6 @@
     - name: Panorama commit
       panos_commit:
         provider: "{{ credentials }}"
-        device_group: "{{device_group }}"
+        device_group: "{{ device_group }}"
         include_template: "{{ include_template }}"
-        # admins: ['apiadmin','admin']
+        # admins: ['{{ admin }}']
