@@ -18,9 +18,14 @@
     #   panos_devices:
     #     provider: "{{ credentials }}"
 
-    - name: Panorama commit
-      panos_commit:
+    # - name: Panorama commit
+    #   panos_commit:
+    #     provider: "{{ credentials }}"
+    #     device_group: "{{ device_group }}"
+    #     include_template: "{{ include_template }}"
+    #     # admins: ['{{ admin }}']
+    - name: full commit
+      panos_op:
         provider: "{{ credentials }}"
-        device_group: "{{ device_group }}"
-        include_template: "{{ include_template }}"
-        # admins: ['{{ admin }}']
+        cmd: "commit-all shared-policy include-template yes force-template-values yes description Ansible device-group 'Lab Firewalls' devices 007255000066625"
+      register: result
