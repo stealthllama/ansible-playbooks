@@ -1,10 +1,11 @@
 ---
-- name: Commit and device_group and template on Panorama
+- name: Commit hack on Panorama
   hosts: all
   connection: local
   gather_facts: False
 
   vars:
+    commit_cmd: "{{ commit_cmd }}"
     credentials:
       ip_address: "{{ ip_address }}"
       username: "{{ username }}"
@@ -14,22 +15,6 @@
     - role: paloaltonetworks.paloaltonetworks
 
   tasks:
-    # - name: Get Panorama devices
-    #   panos_devices:
-    #     provider: "{{ credentials }}"
-
-    # - name: Panorama commit
-    #   panos_commit:
-    #     provider: "{{ credentials }}"
-    #     device_group: "{{ device_group }}"
-    #     include_template: "{{ include_template }}"
-
-    # - name: full commit
-    #   panos_op:
-    #     provider: "{{ credentials }}"
-    #     cmd: "<commit-all><shared-policy><include-template>yes</include-template><force-template-values>yes</force-template-values><description>Ansible</description><device-group><entry name='Lab Firewalls'><devices><entry name='007255000066625'/></devices></entry></device-group></shared-policy></commit-all>"
-    #     cmd_is_xml: true
-    #   register: result
     - name: retrieve api_key
       panos_api_key:
         provider: "{{ credentials }}"
@@ -37,6 +22,6 @@
 
     - name: Commit via URI
       uri:
-        url: "https://{{ ip_address }}/api?key={{ auth.api_key }}&type=commit&action=all&cmd=<commit-all><shared-policy><include-template>yes</include-template><force-template-values>yes</force-template-values><description>Ansible</description><device-group><entry name='Lab Firewalls'><devices><entry name='007255000066625'/></devices></entry></device-group></shared-policy></commit-all>"
+        url: "https://{{ ip_address }}/api?key={{ auth.api_key }}&type=commit&action=all&cmd={{ commit_cmd | urlencode }}"
         method: POST
         validate_certs: no
