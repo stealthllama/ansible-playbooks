@@ -21,6 +21,7 @@
         device_group: "{{ service_devicegroup }}"
         name: "{{ service_name }}"
         description: "{{ service_description }}"
+        protocol: "{{ service_protocol }}"
         destination_port: "{{ service_destination_port }}"
         tag: ["{{ service_tags }}"]
         commit: False
