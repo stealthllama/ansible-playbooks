@@ -23,5 +23,5 @@
         description: "{{ service_description }}"
         protocol: "{{ service_protocol }}"
         destination_port: "{{ service_destination_port }}"
-        tag: ["{{ service_tags }}"]
+        # tag: ["{{ service_tags }}"]
         commit: False

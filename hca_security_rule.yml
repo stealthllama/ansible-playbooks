@@ -33,7 +33,7 @@
         action: "{{ rule_action }}"
         group_profile: "lab-spg"
         log_setting: "lab-lfp"
-        tag_name: ["{{ rule_tags }}"]
+        # tag_name: ["{{ rule_tags }}"]
         state: "{{ rule_state }}"
         commit: False
 
