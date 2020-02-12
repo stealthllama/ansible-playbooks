@@ -1,0 +1,25 @@
+---
+- name: Create/update/delete a service object
+  hosts: all
+  connection: local
+  gather_facts: False
+  any_errors_fatal: true
+
+  vars:
+    credentials:
+      ip_address: "{{ ip_address }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+
+  roles:
+    - role: paloaltonetworks.paloaltonetworks
+
+  tasks:
+    - name: Process the service object
+      panos_service_object:
+        provider: "{{ credentials }}"
+        name: "{{ service_name }}"
+        description: "{{ service_description }}"
+        destination_port: "{{ service_destination_port }}"
+        tag: ["{{ service_tags }}"]
+        commit: False
