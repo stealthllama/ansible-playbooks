@@ -18,6 +18,7 @@
     - name: Process the service object
       panos_service_object:
         provider: "{{ credentials }}"
+        device_group: "{{ service_devicegroup }}"
         name: "{{ service_name }}"
         description: "{{ service_description }}"
         destination_port: "{{ service_destination_port }}"
