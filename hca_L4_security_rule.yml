@@ -22,6 +22,7 @@
         destination_port: "{{ service_destination_port }}"
         description: "{{ service_description }}"
         tag: ["{{ tag }}"]
+        commit: False
 
     - name: Create a L4 security rule
       panos_security_rule:
@@ -39,8 +40,10 @@
         service: ["{{ service_name }}"]
         category: ["{{ rule_category }}"]
         action: "{{ rule_action }}"
-        group_profile: "{{ rule_secprofile }}"
-        log_setting: "{{ rule_logprofile }}"
+        group_profile: "lab-spg"
+        log_setting: "lab-lfg"
+        location: "{{ rule_location }}"
+        existing_rule: "{{ existing_rule }}"
         state: "{{ rule_state }}"
         commit: False
 
