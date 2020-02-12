@@ -32,7 +32,7 @@
         category: ["{{ rule_category }}"]
         action: "{{ rule_action }}"
         group_profile: "lab-spg"
-        log_setting: "lab-lfg"
+        log_setting: "lab-lfp"
         location: "{{ rule_location }}"
         existing_rule: "{{ existing_rule }}"
         state: "{{ rule_state }}"
