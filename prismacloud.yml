@@ -1,6 +1,5 @@
 - name: Network Playbook
-  hosts: pc
-  #connection: httpapi
+  hosts: prismacloud
   gather_facts: false
   collections:
     - paloaltonetworks.prismacloud
