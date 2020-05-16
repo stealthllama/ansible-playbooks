@@ -6,16 +6,16 @@
     - paloaltonetworks.prismacloud
     
   tasks:
-    - name: Get account list
-      prismacloud_cloud_account_facts:
-        details: false
-        cloud_type: 'gcp'
-      register: one
-    - debug:
-        msg: '{{ one.listing }}'
-    - name: Get account groups
-      prismacloud_account_group_facts:
-      register: ans
-    - debug:
-        msg: '{{ ans }}'
+  - name: Get account list
+    prismacloud_cloud_account_facts:
+      details: false
+      cloud_type: 'gcp'
+    register: one
+  - debug:
+      msg: '{{ one.listing }}'
+  - name: Get account groups
+    prismacloud_account_group_facts:
+    register: ans
+  - debug:
+      msg: '{{ ans }}'
 
