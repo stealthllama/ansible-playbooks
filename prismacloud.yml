@@ -1,5 +1,5 @@
 - name: Network Playbook
-  hosts: prismacloud
+  hosts: api.prismacloud.io
   gather_facts: false
   
   collections:
