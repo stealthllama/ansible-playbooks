@@ -1,0 +1,34 @@
+{
+ "collection_info": {
+  "namespace": "paloaltonetworks",
+  "name": "prismacloud",
+  "version": "1.0.0",
+  "authors": [
+   "Garfield Lee Freeman"
+  ],
+  "readme": "README.md",
+  "tags": [
+   "networking",
+   "paloaltonetworks",
+   "panw",
+   "security",
+   "prismacloud"
+  ],
+  "description": "Collection for Palo Alto Networks Prisma Cloud",
+  "license": [],
+  "license_file": "LICENSE",
+  "dependencies": {},
+  "repository": "https://github.com/PaloAltoNetworks/prisma-cloud-ansible",
+  "documentation": null,
+  "homepage": "https://github.com/PaloAltoNetworks/prisma-cloud-ansible",
+  "issues": "https://github.com/PaloAltoNetworks/prisma-cloud-ansible/issues"
+ },
+ "file_manifest_file": {
+  "name": "FILES.json",
+  "ftype": "file",
+  "chksum_type": "sha256",
+  "chksum_sha256": "a1bafb9fa3ecd9ab3e76d60e5ebf5bfa40040b985ca294451720d0c3303045fd",
+  "format": 1
+ },
+ "format": 1
+}
