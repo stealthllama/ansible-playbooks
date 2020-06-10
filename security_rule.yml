@@ -1,6 +1,5 @@
 ---
 - name: Modify a PAN-OS security rule
-  hosts: all
   connection: local
   gather_facts: False
   any_errors_fatal: true
