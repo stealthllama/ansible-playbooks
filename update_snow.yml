@@ -1,0 +1,17 @@
+---
+- name: Update the ServiceNow request
+  hosts: all
+  connection: local
+  gather_facts: False
+
+  tasks:
+  - name: Update the ServiceNow request
+    snow_record:
+      username: '{{ snow_username }}'
+      password: '{{ snow_password }}'
+      instance: '{{ snow_instance }}'
+      table: '{{ snow_table }}'
+      number: '{{ snow_request }}'
+      state: present
+      data:
+        state: Closed Complete
