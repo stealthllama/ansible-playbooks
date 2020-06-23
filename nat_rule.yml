@@ -1,0 +1,27 @@
+---
+- name: Modify a PAN-OS DNAT rule
+  hosts: all
+  connection: local
+  gather_facts: False
+
+  vars:
+    credentials:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+      
+  roles:
+    - role: paloaltonetworks.paloaltonetworks
+
+  tasks:
+  - name: Create a DNAT rule
+    panos_nat_rule:
+      provider: '{{ provider }}'
+      rule_name: '{{ rule_name }}'
+      source_zone: ['{{ source_zone }}']
+      destination_zone: '{{ destination_zone }}'
+      source_ip: ['{{ source_ip }}']
+      destination_ip: ['{{ destination_ip }}']
+      service: '{{ service }}'
+      dnat_address: '{{ dnat_address }}'
+      dnat_port: '{{ dnat_port }}'
