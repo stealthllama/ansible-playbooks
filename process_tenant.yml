@@ -63,5 +63,5 @@
         wildfire_analysis: "default"
         log_setting: "default"
         state: "{{ state | default('present')}}"
-        tag: ["ansible"]
+        tag_name: ["ansible"]
         commit: False
