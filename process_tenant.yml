@@ -14,13 +14,21 @@
     - role: paloaltonetworks.paloaltonetworks
 
   tasks:
+    - name: Add the Ansible tag
+      panos_tag_object:
+        provider: "{{ provider }}"
+        name: "ansible"
+        color: "red"
+        comments: "Added by Ansible"
+        state: "{{ state | default('present')}}"
+
     - name: Add the tenant address object
       panos_address_object:
         provider: "{{ credentials }}"
         name: "{{ tenant_name }} subnet"
         value: "{{ tenant_subnet }}"
         description: "Subnet for {{ tenant_name }}"
-        tag: ["{{ tenant_name }}"]
+        tag: ["ansible"]
         commit: False
         state: "{{ state | default('present')}}"
 
@@ -54,5 +62,5 @@
         spyware: "strict"
         log_setting: "default"
         state: "{{ state | default('present')}}"
-        tag: ["{{ tenant_name }}"]
+        tag: ["ansible"]
         commit: False
