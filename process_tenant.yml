@@ -9,34 +9,35 @@
       ip_address: "{{ ip_address }}"
       username: "{{ username }}"
       password: "{{ password }}"
+    tenant_name: "{{ tenant_name | lower(replace('' '', '-'')) }}"
 
   roles:
     - role: paloaltonetworks.paloaltonetworks
 
   tasks:
-    - name: Add the Ansible tag
+    - name: ansible tag
       panos_tag_object:
         provider: "{{ credentials }}"
         name: "ansible"
-        color: "red"
+        color: "gold"
         comments: "Added by Ansible"
         commit: False
         state: "{{ state | default('present')}}"
 
-    - name: Add the tenant address object
+    - name: tenant address object
       panos_address_object:
         provider: "{{ credentials }}"
-        name: "{{ tenant_name }} subnet"
+        name: "{{ tenant_name }}-subnet"
         value: "{{ tenant_subnet | ipaddr }}"
         description: "Subnet for {{ tenant_name }}"
         tag: ["ansible"]
         commit: False
         state: "{{ state | default('present')}}"
 
-    - name: Add the tenant static route
+    - name: tenant static route
       panos_static_route:
         provider: "{{ credentials }}"
-        name: "{{ tenant_name }} route"
+        name: "{{ tenant_name }}-route"
         virtual_router: default
         destination: "{{ tenant_subnet | ipaddr }}"
         nexthop: "{{ tenant_nexthop | ipaddr }}"
@@ -44,7 +45,7 @@
         metric: 10
         state: "{{ state | default('present')}}"
 
-    - name: Add the tenant security rule
+    - name: tenant security rule
       panos_security_rule:
         provider: "{{ credentials }}"
         rule_name: "Allow {{ tenant_name }}"
@@ -64,3 +65,18 @@
         state: "{{ state | default('present')}}"
         tag_name: ["ansible"]
         commit: False
+
+    - name: commit changes
+      panos_commit:
+        provider: "{{ credentials }}"
+      register: commit_output
+
+    - name: wait for commit result
+      async_status:
+        jid: "{{ item.ansible_job_id }}"
+      register: async_commit_result
+      until: async_commit_result.finished
+      retries: 300
+      loop: "{{ commit_output.results }}"
+      loop_control:
+        loop_vars: item
