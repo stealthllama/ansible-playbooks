@@ -1,0 +1,58 @@
+---
+- name: Process a new tenant
+  hosts: all
+  connection: local
+  gather_facts: False
+
+  vars:
+    credentials:
+      ip_address: "{{ ip_address }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+
+  roles:
+    - role: paloaltonetworks.paloaltonetworks
+
+  tasks:
+    - name: Add the tenant address object
+      panos_address_object:
+        provider: "{{ provider }}"
+        name: "{{ tenant_name }} subnet"
+        value: "{{ tenant_subnet }}"
+        description: "Subnet for {{ tenant_name }}"
+        tag: ["{{ tenant_name }}"]
+        commit: False
+        state: "{{ state | default('present')}}"
+
+    - name: Add the tenant static route
+      panos_static_route:
+        provider: "{{ credentials }}"
+        name: "{{ tenant_name }} route"
+        virtual_router: default
+        destination: "{{ tenant_subnet }}"
+        nexthop: "{{ tenant_nexthop }}"
+        nexthop_type: ip-address
+        metric: 10
+        state: "{{ state | default('present')}}"
+
+    - name: Add the tenant security rule
+      panos_security_rule:
+        provider: "{{ credentials }}"
+        rule_name: "Allow {{ tenant_name }}"
+        description: "Allow access to {{ tenant_name }} sandbox"
+        source_zone: ["outside"]
+        source_ip: ["any"]
+        source_user: ["werum\\{{ tenant_name }}"]
+        destination_zone: ["sandboxes"]
+        destination_ip: ["{{ tenant_name }} subnet"]
+        application: ["ping", "ssh"]
+        service: ["application-default"]
+        action: "allow"
+        group_profile: "{{ rule_secprofile }}"
+        antivirus: "default"
+        vulnerability: "strict"
+        spyware: "strict"
+        log_setting: "default"
+        state: "{{ state | default('present')}}"
+        tag: ["{{ tenant_name }}"]
+        commit: False
