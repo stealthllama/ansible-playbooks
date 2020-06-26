@@ -9,7 +9,7 @@
       ip_address: "{{ ip_address }}"
       username: "{{ username }}"
       password: "{{ password }}"
-    tenant_name: "{{ tenant_name | lower(replace('' '', '-'')) }}"
+    tenant: "{{ tenant_name | lower(replace('' '', '-'')) }}"
 
   roles:
     - role: paloaltonetworks.paloaltonetworks
@@ -27,7 +27,7 @@
     - name: tenant address object
       panos_address_object:
         provider: "{{ credentials }}"
-        name: "{{ tenant_name }}-subnet"
+        name: "{{ tenant }}-subnet"
         value: "{{ tenant_subnet | ipaddr }}"
         description: "Subnet for {{ tenant_name }}"
         tag: ["ansible"]
@@ -37,7 +37,7 @@
     - name: tenant static route
       panos_static_route:
         provider: "{{ credentials }}"
-        name: "{{ tenant_name }}-route"
+        name: "{{ tenant }}-route"
         virtual_router: default
         destination: "{{ tenant_subnet | ipaddr }}"
         nexthop: "{{ tenant_nexthop | ipaddr }}"
@@ -52,9 +52,9 @@
         description: "Allow access to {{ tenant_name }} sandbox"
         source_zone: ["outside"]
         source_ip: ["any"]
-        source_user: ["werum\\{{ tenant_name }}"]
+        source_user: ["werum\\{{ tenant }}"]
         destination_zone: ["sandboxes"]
-        destination_ip: ["{{ tenant_name }} subnet"]
+        destination_ip: ["{{ tenant }}-subnet"]
         application: ["ping", "ssh"]
         service: ["application-default"]
         action: "allow"
