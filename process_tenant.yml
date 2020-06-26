@@ -9,7 +9,7 @@
       ip_address: "{{ ip_address }}"
       username: "{{ username }}"
       password: "{{ password }}"
-    tenant: "{{ tenant_name | replace(' ', '-')) | lower }}"
+    tenant: "{{ tenant_name | replace(' ', '-') | lower }}"
 
   roles:
     - role: paloaltonetworks.paloaltonetworks
