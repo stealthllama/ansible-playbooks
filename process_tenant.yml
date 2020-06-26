@@ -16,7 +16,7 @@
   tasks:
     - name: Add the tenant address object
       panos_address_object:
-        provider: "{{ provider }}"
+        provider: "{{ credentials }}"
         name: "{{ tenant_name }} subnet"
         value: "{{ tenant_subnet }}"
         description: "Subnet for {{ tenant_name }}"
