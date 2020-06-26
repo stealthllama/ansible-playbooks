@@ -57,7 +57,6 @@
         application: ["ping", "ssh"]
         service: ["application-default"]
         action: "allow"
-        group_profile: "{{ rule_secprofile }}"
         antivirus: "default"
         vulnerability: "strict"
         spyware: "strict"
