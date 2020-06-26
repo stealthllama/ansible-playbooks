@@ -38,8 +38,8 @@
         provider: "{{ credentials }}"
         name: "{{ tenant_name }} route"
         virtual_router: default
-        destination: "{{ tenant_subnet }}"
-        nexthop: "{{ tenant_nexthop }}"
+        destination: "{{ tenant_subnet | ipaddr }}"
+        nexthop: "{{ tenant_nexthop | ipaddr }}"
         nexthop_type: ip-address
         metric: 10
         state: "{{ state | default('present')}}"
