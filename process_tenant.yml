@@ -61,7 +61,6 @@
         vulnerability: "strict"
         spyware: "strict"
         wildfire_analysis: "default"
-        log_setting: "default"
         state: "{{ state | default('present')}}"
         tag_name: ["ansible"]
         commit: False
