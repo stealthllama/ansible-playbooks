@@ -9,7 +9,7 @@
       ip_address: "{{ ip_address }}"
       username: "{{ username }}"
       password: "{{ password }}"
-    tenant: "{{ tenant_name | lower(replace('' '', '-'')) }}"
+    tenant: "{{ tenant_name | lower(replace(' ', '-')) }}"
 
   roles:
     - role: paloaltonetworks.paloaltonetworks
@@ -48,7 +48,7 @@
     - name: tenant security rule
       panos_security_rule:
         provider: "{{ credentials }}"
-        rule_name: "Allow {{ tenant_name }}"
+        rule_name: "Allow {{ tenant }}"
         description: "Allow access to {{ tenant_name }} sandbox"
         source_zone: ["outside"]
         source_ip: ["any"]
