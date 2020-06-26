@@ -79,4 +79,4 @@
       retries: 300
       loop: "{{ commit_output.results }}"
       loop_control:
-        loop_vars: item
+        loop_var: item
