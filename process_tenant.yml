@@ -16,7 +16,7 @@
   tasks:
     - name: Add the Ansible tag
       panos_tag_object:
-        provider: "{{ provider }}"
+        provider: "{{ credentials }}"
         name: "ansible"
         color: "red"
         comments: "Added by Ansible"
@@ -26,7 +26,7 @@
       panos_address_object:
         provider: "{{ credentials }}"
         name: "{{ tenant_name }} subnet"
-        value: "{{ tenant_subnet }}"
+        value: "{{ tenant_subnet | ipaddr }}"
         description: "Subnet for {{ tenant_name }}"
         tag: ["ansible"]
         commit: False
