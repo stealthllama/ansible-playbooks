@@ -15,6 +15,17 @@
     - role: paloaltonetworks.paloaltonetworks
 
   tasks:
+    - name: active directory group
+      win_domain_group:
+        domain_username: "{{ domain_user }}"
+        domain_password: "{{ domain_password }}"
+        domain_server: "{{ domain_controller }}"
+        name: "{{ tenant_name }}"
+        description: "{{ tenant_name }} users"
+        organizational_unit: "OU=Firewall Management,DC=PANLABS,DC=org"
+        scope: global
+        category: security
+
     - name: ansible tag
       panos_tag_object:
         provider: "{{ credentials }}"
@@ -22,7 +33,6 @@
         color: "gold"
         comments: "Added by Ansible"
         commit: False
-        state: "{{ state | default('present')}}"
 
     - name: tenant address object
       panos_address_object:
@@ -32,7 +42,6 @@
         description: "Subnet for {{ tenant_name }}"
         tag: ["ansible"]
         commit: False
-        state: "{{ state | default('present')}}"
 
     - name: tenant static route
       panos_static_route:
@@ -43,7 +52,6 @@
         nexthop: "{{ tenant_nexthop | ipaddr }}"
         nexthop_type: ip-address
         metric: 10
-        state: "{{ state | default('present')}}"
 
     - name: tenant security rule
       panos_security_rule:
@@ -52,7 +60,7 @@
         description: "Allow access to {{ tenant_name }} sandbox"
         source_zone: ["outside"]
         source_ip: ["any"]
-        source_user: ["werum\\{{ tenant }}"]
+        source_user: ["werum\\{{ tenant_name }}"]
         destination_zone: ["sandboxes"]
         destination_ip: ["{{ tenant }}-subnet"]
         application: ["ping", "ssh"]
@@ -62,7 +70,6 @@
         vulnerability: "strict"
         spyware: "strict"
         wildfire_analysis: "default"
-        state: "{{ state | default('present')}}"
         tag_name: ["ansible"]
         commit: False
 
@@ -70,13 +77,5 @@
       panos_commit:
         provider: "{{ credentials }}"
       register: commit_output
-
-    - name: wait for commit result
-      async_status:
-        jid: "{{ item.ansible_job_id }}"
-      register: async_commit_result
-      until: async_commit_result.finished
-      retries: 300
-      loop: "{{ commit_output.results }}"
-      loop_control:
-        loop_var: item
+      debug:
+        msg: commit_output

@@ -1,0 +1,7 @@
+all:
+  hosts:
+      firewall.panlabs.org:
+        ip_address: firewall.panlabs.org
+        username: admin
+        password: kh8uyQMfNqvAo)P=vusCoDucF9j7*wF
+        
