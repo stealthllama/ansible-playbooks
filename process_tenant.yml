@@ -79,4 +79,4 @@
       register: commit_output
 
     - debug:
-        msg: commit_output
+        var: commit_output
