@@ -17,7 +17,7 @@
   tasks:
     - name: active directory group
       win_domain_group:
-        domain_username: "{{ domain_user }}"
+        domain_username: "{{ domain_username }}"
         domain_password: "{{ domain_password }}"
         domain_server: "{{ domain_controller }}"
         name: "{{ tenant_name }}"
