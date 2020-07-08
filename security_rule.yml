@@ -36,13 +36,13 @@
       state: '{{ rule_state }}'
       commit: False
   
-#   - name: Update the ServiceNow request
-#     snow_record:
-#       username: '{{ snow_username }}'
-#       password: '{{ snow_password }}'
-#       instance: '{{ snow_instance }}'
-#       table: '{{ snow_table }}'
-#       number: '{{ snow_request }}'
-#       state: present
-#       data:
-#         state: Closed Complete
+   - name: Update the ServiceNow request
+     snow_record:
+       username: '{{ snow_username }}'
+       password: '{{ snow_password }}'
+       instance: '{{ snow_instance }}'
+       table: '{{ snow_table }}'
+       number: '{{ snow_request }}'
+       state: present
+       data:
+         state: Closed Complete
