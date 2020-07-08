@@ -75,6 +75,7 @@
         name: "App1"
         color: "blue"
         comments: "Prod Environment"
+        commit: False
 
     - name: Create custom-url-category
       panos_type_cmd:
