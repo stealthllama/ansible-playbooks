@@ -43,6 +43,7 @@
         url_filtering: "default"
         file_blocking: "basic file blocking"
         wildfire: "default"
+        commit: False
 
     - name: Create custom-url-category
       panos_type_cmd:
