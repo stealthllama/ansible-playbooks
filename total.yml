@@ -92,14 +92,18 @@
 
     - name: Add URL in the list
       panos_type_cmd:
-        cmd: edit
+        cmd: set
         provider: "{{ credentials }}"
         xpath: |
           /config/devices/entry[@name='localhost.localdomain']
           /vsys/entry[@name='vsys1']
           /profiles/custom-url-category/entry[@name='App1']
         element: |
-          <list>{%- for url in url_list -%}<member>{{ url }}</member>{% endfor %}</list>
+          <list>
+          {%- for url in url_list -%}
+            <member>{{ url }}</member>
+          {% endfor %}
+          </list>
           <type>URL List</type>
       register: out
 
