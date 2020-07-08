@@ -23,6 +23,7 @@
         name: "Deny"
         color: "red"
         comments: "Prod Environment"
+        commit: False
 
     - name: Create tag for Web Access
       panos_tag_object:
@@ -30,6 +31,7 @@
         name: "Web Access"
         color: "green"
         comments: "Prod Environment"
+        commit: False
 
     - name: setup security profile group
       panos_pg:
