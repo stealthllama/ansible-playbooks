@@ -111,11 +111,10 @@
       panos_security_rule:
         provider: "{{ credentials }}"
         rule_name: "App1 - Web Access"
-        description: ""
         tag_name: ["App1", "Web Access"]
-        source_zone: ["public"]
+        source_zone: ["outside"]
         source_ip: ["subnet-App1"]
-        destination_zone: ["private"]
+        destination_zone: ["prod"]
         destination_ip: ["any"]
         application: ["web-apps"]
         category: "App1"
@@ -127,11 +126,10 @@
       panos_security_rule:
         provider: "{{ credentials }}"
         rule_name: "App1 - Deny"
-        description: ""
         tag_name: ["App1", "Deny"]
-        source_zone: ["public"]
+        source_zone: ["outside"]
         source_ip: ["any"]
-        destination_zone: ["private"]
+        destination_zone: ["prod"]
         destination_ip: ["any"]
         application: ["any"]
         service: ["any"]
