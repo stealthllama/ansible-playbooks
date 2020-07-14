@@ -12,9 +12,9 @@
     dg_list: ["Lab Firewalls", "Demo_DG"]
       
 
-  roles:
-    - role: paloaltonetworks.paloaltonetworks
-
+  collections:
+    - paloaltonetworks.panos
+    
   tasks:
     - name: commit loop
       panos_commit:
