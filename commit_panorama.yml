@@ -5,23 +5,39 @@
   gather_facts: False
 
   vars:
-    commit_cmd: "{{ commit_cmd }}"
     credentials:
       ip_address: "{{ ip_address }}"
       username: "{{ username }}"
       password: "{{ password }}"
+    dg_list: ["Lab Firewalls", "Demo_DG"]
+      
 
   roles:
     - role: paloaltonetworks.paloaltonetworks
 
   tasks:
-    - name: retrieve api_key
-      panos_api_key:
+    - name: commit loop
+      panos_commit:
         provider: "{{ credentials }}"
-      register: auth
+        admins: ['apiadmin']
+        device_group: "{{ item }}"
+      loop: "{{ dg_list }}"
+      loop_control:
+        loop_var: item
+      async: 360
+      poll: 0
+      register: commit_output
+      
+    - name: demp var
+      debug:
+        var: commit_output
 
-    - name: Commit via URI
-      uri:
-        url: "https://{{ ip_address }}/api?key={{ auth.api_key }}&type=commit&action=all&cmd={{ commit_cmd | urlencode }}"
-        method: POST
-        validate_certs: no
+    - name: Wait for commit
+      async_status:
+        jid: "{{ item.ansible_job_id }}"
+      register: async_commit_result
+      until: async_commit_result.finished
+      retries: 300
+      loop: "{{ commit_output.results }}"
+      loop_control:
+        loop_var: item
