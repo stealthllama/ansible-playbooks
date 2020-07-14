@@ -19,7 +19,7 @@
     - name: commit loop
       panos_commit:
         provider: "{{ credentials }}"
-        admins: ['apiadmin']
+        admins: ['admin']
         device_group: "{{ item }}"
       loop: "{{ dg_list }}"
       loop_control:
@@ -28,7 +28,7 @@
       poll: 0
       register: commit_output
       
-    - name: demp var
+    - name: dump var
       debug:
         var: commit_output
 
