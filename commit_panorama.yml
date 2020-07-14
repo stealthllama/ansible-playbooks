@@ -19,7 +19,7 @@
     - name: commit loop
       panos_commit:
         provider: "{{ credentials }}"
-        admins: ['admin']
+        admins: ["{{ username }}"]
         device_group: "{{ item }}"
       loop: "{{ dg_list }}"
       loop_control:
