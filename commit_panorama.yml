@@ -32,12 +32,12 @@
       debug:
         var: commit_output
 
-    - name: Wait for commit
-      async_status:
-        jid: "{{ item.ansible_job_id }}"
-      register: async_commit_result
-      until: async_commit_result.finished
-      retries: 300
-      loop: "{{ commit_output.results }}"
-      loop_control:
-        loop_var: item
+#     - name: Wait for commit
+#       async_status:
+#         jid: "{{ item.ansible_job_id }}"
+#       register: async_commit_result
+#       until: async_commit_result.finished
+#       retries: 300
+#       loop: "{{ commit_output.results }}"
+#       loop_control:
+#         loop_var: item
