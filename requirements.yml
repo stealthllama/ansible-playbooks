@@ -1,3 +1,7 @@
 collections:
   - name: paloaltonetworks.panos
     source: https://galaxy.ansible.com
+
+roles:
+  - name: mprahl.lets-encrypt-route-53
+    source: https://galaxy.ansible.com
