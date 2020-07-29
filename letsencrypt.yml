@@ -8,7 +8,7 @@
   - paloaltonetworks.panos
   
   vars:
-  - ler53_cert_common_name: {{ fqdn }}
-  - ler53_route_53_domain: {{ domain }}
-  - ler53_aws_access_key: {{ lookup('env','AWS_ACCESS_KEY_ID') }}
-  - ler53_aws_secret_key: {{ lookup('env','AWS_SECRET_ACCESS_KEY') }}
+  - ler53_cert_common_name: "{{ fqdn }}"
+  - ler53_route_53_domain: "{{ domain }}"
+  - ler53_aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+  - ler53_aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
