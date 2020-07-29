@@ -1,5 +1,6 @@
 - name: Generate a LetsEncrypt SSL certificate for Route53
   hosts: localhost
+  become: yes
 
   roles:
   - mprahl.lets-encrypt-route-53
