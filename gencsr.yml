@@ -52,4 +52,4 @@
       
     - name: Dump the CSR
       debug:
-        var: csr
+        var: csr.content
