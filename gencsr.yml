@@ -1,5 +1,5 @@
 ---
-- name: Generate a CSR in PAN-OS
+- name: Generate a certificate
   hosts: all
   connection: local
   gather_facts: False
@@ -14,7 +14,7 @@
     - paloaltonetworks.panos
     
   tasks:
-    - name: Create the certificate
+    - name: Create the certificate signing request
       panos_op:
         provider: "{{ credentials }}"
         cmd: |
@@ -35,3 +35,18 @@
             </certificate>
           </request>
         cmd_is_xml: true
+        
+    - name: retrieve api_key
+      panos_op:
+        provider: '{{ provider }}'
+      register: api_key
+        
+    - name: Export the certificate signing request
+      uri:
+        url: https://{{ ip_address }}/api?key={{ api_key }}&type=export&category=certificate&certificate-name={{ cert_name }}&format=pkcs10&include-key=no'
+        method: POST
+      register: csr
+      
+    - name: Dump the CSR
+      debug:
+        var: csr
