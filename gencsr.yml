@@ -38,7 +38,7 @@
         
     - name: retrieve api_key
       panos_op:
-        provider: '{{ provider }}'
+        provider: '{{ credentials }}'
       register: api_key
         
     - name: Export the certificate signing request
