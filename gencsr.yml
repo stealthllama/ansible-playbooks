@@ -46,6 +46,7 @@
         url: https://{{ ip_address }}/api?key={{ result.api_key }}&type=export&category=certificate&certificate-name={{ cert_name|urlencode }}&format=pkcs10&include-key=no'
         method: POST
         validate_certs: no
+        return_content: yes
       register: csr
       
     - name: Dump the CSR
