@@ -37,7 +37,7 @@
         cmd_is_xml: true
         
     - name: retrieve api_key
-      panos_op:
+      panos_api_key:
         provider: '{{ credentials }}'
       register: api_key
         
