@@ -39,11 +39,11 @@
     - name: retrieve api_key
       panos_api_key:
         provider: '{{ credentials }}'
-      register: api_key
+      register: result
         
     - name: Export the certificate signing request
       uri:
-        url: https://{{ ip_address }}/api?key={{ api_key }}&type=export&category=certificate&certificate-name={{ cert_name }}&format=pkcs10&include-key=no'
+        url: https://{{ ip_address }}/api?key={{ result.api_key }}&type=export&category=certificate&certificate-name={{ cert_name }}&format=pkcs10&include-key=no'
         method: POST
       register: csr
       
