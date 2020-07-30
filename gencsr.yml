@@ -1,0 +1,37 @@
+---
+- name: Generate a CSR in PAN-OS
+  hosts: all
+  connection: local
+  gather_facts: False
+
+  vars:
+    credentials:
+      ip_address: "{{ ip_address }}"
+      username: "{{ username }}"
+      password: "{{ password }}"      
+
+  collections:
+    - paloaltonetworks.panos
+    
+  tasks:
+    - name: Create the certificate
+      panos_op:
+        provider: "{{ credentials }}"
+        cmd: |
+          <request>
+            <certificate>
+              <generate>
+                <certificate-name>'{{ cert_name }}'</certificate-name>
+                <name>'{{ cert_fqdn }}'</name>
+                <algorithm>
+                  <RSA>
+                    <rsa-nbits>2048</rsa-nbits>
+                  </RSA>
+                </algorithm>
+                <digest>sha256</digest>
+                <ca>no</ca>
+                <signed-by>external</signed-by>
+              </generate>
+            </certificate>
+          </request>
+        cmd_is_xml: true
