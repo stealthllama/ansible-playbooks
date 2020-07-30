@@ -43,9 +43,9 @@
         
     - name: Export the certificate signing request
       uri:
-        url: https://{{ ip_address }}/api?key={{ result.api_key }}&type=export&category=certificate&certificate-name={{ cert_name|urlencode() }}&format=pkcs10&include-key=no'
+        url: https://{{ ip_address }}/api?key={{ result.api_key }}&type=export&category=certificate&certificate-name={{ cert_name|urlencode }}&format=pkcs10&include-key=no'
         method: POST
-        body_format: form-urlencoded
+        validate_certs: no
       register: csr
       
     - name: Dump the CSR
