@@ -21,8 +21,8 @@
           <request>
             <certificate>
               <generate>
-                <certificate-name>'{{ cert_name }}'</certificate-name>
-                <name>'{{ cert_fqdn }}'</name>
+                <certificate-name>{{ cert_name }}</certificate-name>
+                <name>{{ cert_fqdn }}</name>
                 <algorithm>
                   <RSA>
                     <rsa-nbits>2048</rsa-nbits>
