@@ -1,3 +1,0 @@
-collections:
-  - name: paloaltonetworks.panos
-    source: https://galaxy.ansible.com
