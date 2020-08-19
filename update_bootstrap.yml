@@ -12,5 +12,5 @@
 
   tasks:
   - name: process meta files
-    include_tasks: process_file.yml
+    import_tasks: process_file.yml
     loop: "{{ meta_files }}"
