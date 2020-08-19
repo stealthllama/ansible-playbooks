@@ -1,0 +1,16 @@
+---
+- name: Update bootstrap container contents
+  hosts: scp
+
+  vars:
+    meta_files:
+    - app.meta
+    - av.meta
+    - content.meta
+    - wf2.meta
+    - wf3.meta
+
+  tasks:
+  - name: process meta files
+    include_tasks: process_file.yml
+    loop: "{{ meta_files }}"
