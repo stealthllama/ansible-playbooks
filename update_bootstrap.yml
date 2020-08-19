@@ -11,12 +11,6 @@
     - wf3.meta
 
   tasks:
-  - aws_s3:
-      aws_access_key: "{{ aws_access_key }}"
-      aws_secret_key: "{{ aws_secret_key }}"
-      bucket: my-panos-bucket
-      mode: list
-
   - name: process meta files
     include_tasks: process_file.yml
     loop: "{{ meta_files }}"
