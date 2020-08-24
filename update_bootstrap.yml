@@ -15,10 +15,3 @@
     include_tasks: process_file.yml
     loop: "{{ meta_files }}"
 
-  - name: mark as processed
-    copy:
-      src: /home/panupload/content/{{ item }}
-      dest: /home/panupload/content/{{ item }}.old
-      remote_src: yes
-    with_items:
-      - "{{ meta_files }}"
