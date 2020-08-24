@@ -37,3 +37,4 @@
   copy:
     src: /home/panupload/content/{{ newfile }}
     dest: /home/panupload/content/{{ oldfile }}
+    remote_src: yes
