@@ -32,12 +32,6 @@
     object: "/content/{{ oldfile }}"
     mode: delobj
   when: newfile != oldfile
-
-- name: delete the new file
-  file: 
-    path: "{{ source_dir }}/{{ newfile }}"
-    state: absent
-  when: newfile != oldfile
   
 - name: mark the file as processed
   copy:
