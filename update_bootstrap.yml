@@ -16,8 +16,12 @@
     loop: "{{ meta_files }}"
 
   - name: delete the source files
+    find:
+      paths: "{{ cloud_dir }}"
+      patterns: "panup*"
+    register: files_to_delete
+
     file:
-      path: "{{ item }}"
+      path: "{{ item.path }}"
       state: absent
-    with_fileglob: 
-      - "{{ source_dir }}/panup*"
+    with_items: "{{ files_to_delete.files }}"
