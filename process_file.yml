@@ -41,6 +41,6 @@
   
 - name: mark the file as processed
   copy:
-    src: "{{ source_dir }}/{{ newfile }}"
-    dest: "{{ source_dir }}/{{ oldfile }}"
+    src: "{{ source_dir }}/{{ item }}"
+    dest: "{{ source_dir }}/{{ item }}.old"
     remote_src: yes
