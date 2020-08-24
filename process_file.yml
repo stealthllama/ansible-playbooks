@@ -1,6 +1,6 @@
 - name: read current meta file
   slurp:
-    src: /home/panupload/content/{{ item }}
+    src: "{{ source_dir }}/{{ item }}"
   register: result
 
 - set_fact:
@@ -8,7 +8,7 @@
 
 - name: read old meta file
   slurp:
-    src: {{ source_dir }}/{{ item }}.old
+    src: "{{ source_dir }}/{{ item }}.old"
   register: result
 
 - set_fact:
@@ -19,8 +19,8 @@
     aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
     aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
     bucket: "{{ bucket_id }}"
-    object: /content/{{ newfile }}
-    src: {{ source_dir }}/{{ newfile }}
+    object: "/content/{{ newfile }}"
+    src: "{{ source_dir }}/{{ newfile }}"
     mode: put
   when: newfile != oldfile
 
@@ -29,18 +29,18 @@
     aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
     aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
     bucket: "{{ bucket_id }}"
-    object: /content/{{ oldfile }}
+    object: "/content/{{ oldfile }}"
     mode: delobj
   when: newfile != oldfile
 
 - name: delete the new file
   file: 
-    path: /home/panupload/content/{{ newfile }}
+    path: "{{ source_dir }}/{{ newfile }}"
     state: absent
   when: newfile != oldfile
   
 - name: mark the file as processed
   copy:
-    src: {{ source_dir }}/{{ newfile }}
-    dest: {{ source_dir }}/{{ oldfile }}
+    src: "{{ source_dir }}/{{ newfile }}"
+    dest: "{{ source_dir }}/{{ oldfile }}"
     remote_src: yes
