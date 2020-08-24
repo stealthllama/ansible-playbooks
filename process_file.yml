@@ -8,7 +8,7 @@
 
 - name: read old meta file
   slurp:
-    src: /home/panupload/content/{{ item }}.old
+    src: {{ source_dir }}/{{ item }}.old
   register: result
 
 - set_fact:
@@ -18,9 +18,9 @@
   aws_s3:
     aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
     aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
-    bucket: hagen-bootstrap-bckt
+    bucket: "{{ bucket_id }}"
     object: /content/{{ newfile }}
-    src: /home/panupload/content/{{ newfile }}
+    src: {{ source_dir }}/{{ newfile }}
     mode: put
   when: newfile != oldfile
 
@@ -28,7 +28,7 @@
   aws_s3:
     aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
     aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
-    bucket: hagen-bootstrap-bckt
+    bucket: "{{ bucket_id }}"
     object: /content/{{ oldfile }}
     mode: delobj
   when: newfile != oldfile
@@ -41,6 +41,6 @@
   
 - name: mark the file as processed
   copy:
-    src: /home/panupload/content/{{ newfile }}
-    dest: /home/panupload/content/{{ oldfile }}
+    src: {{ source_dir }}/{{ newfile }}
+    dest: {{ source_dir }}/{{ oldfile }}
     remote_src: yes
