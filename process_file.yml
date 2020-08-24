@@ -1,4 +1,4 @@
-- name: copy meta file
+- name: read current meta file
   slurp:
     src: /home/panupload/content/{{ item }}
   register: result
@@ -6,7 +6,15 @@
 - set_fact:
     newfile: "{{ result['content'] | b64decode | trim }}"
 
-- name: upload to S3
+- name: read old meta file
+  slurp:
+    src: /home/panupload/content/{{ item }}.old
+  register: result
+
+- set_fact:
+    oldfile: "{{ result['content'] | b64decode | trim }}"
+
+- name: upload the new file
   aws_s3:
     aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
     aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
@@ -14,5 +22,15 @@
     object: /content/{{ newfile }}
     src: /home/panupload/content/{{ newfile }}
     mode: put
-    ignore_nonexistent_bucket: True
+  when: {{ newfile }} != {{ oldfile }}
 
+- name: delete the old file
+  aws_s3:
+    aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+    aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+    bucket: hagen-bootstrap-bckt
+    object: /content/{{ oldfile }}
+    mode: delobj
+  when: {{ newfile }} != {{ oldfile }}
+  
+  
