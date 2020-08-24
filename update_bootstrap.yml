@@ -1,6 +1,6 @@
 ---
 - name: Update bootstrap container contents
-  hosts: scp
+  hosts: all
 
   vars:
     meta_files:
