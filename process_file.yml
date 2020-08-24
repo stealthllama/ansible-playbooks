@@ -33,4 +33,7 @@
     mode: delobj
   when: {{ newfile }} != {{ oldfile }}
   
-  
+- name: mark the file as processed
+  copy:
+    src: /home/panupload/content/{{ newfile }}
+    dest: /home/panupload/content/{{ oldfile }}
