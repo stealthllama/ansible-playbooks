@@ -15,12 +15,13 @@
     include_tasks: process_file.yml
     loop: "{{ meta_files }}"
 
-  - name: delete the source files
+  - name: find the source files
     find:
       paths: "{{ cloud_dir }}"
       patterns: "panup*"
     register: files_to_delete
 
+  - name: purge the source files
     file:
       path: "{{ item.path }}"
       state: absent
