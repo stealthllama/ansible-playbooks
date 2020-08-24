@@ -31,7 +31,7 @@
     bucket: hagen-bootstrap-bckt
     object: /content/{{ oldfile }}
     mode: delobj
-  when: {{ newfile }} != {{ oldfile }}
+  when: "{{ newfile }}" != "{{ oldfile }}"
   
 - name: mark the file as processed
   copy:
