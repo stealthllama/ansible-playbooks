@@ -6,12 +6,6 @@
 - set_fact:
     newfile: "{{ result['content'] | b64decode | trim }}"
 
-# - name: fetch content file
-#   fetch:
-#     src: /home/panupload/content/{{ newfile }}
-#     dest: "{{playbook_dir}}/"
-#     flat: true
-
 - name: upload to S3
   aws_s3:
     aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
@@ -22,8 +16,3 @@
     mode: put
     ignore_nonexistent_bucket: True
 
-- name: mark as processed
-  copy:
-    src: /home/panupload/content/{{ item }
-    dest: /home/panupload/content/{{ item }.old
-    remote_src: yes
