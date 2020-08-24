@@ -6,19 +6,19 @@
 - set_fact:
     newfile: "{{ result['content'] | b64decode | trim }}"
 
-- name: fetch content file
-  fetch:
-    src: /home/panupload/content/{{ newfile }}
-    dest: "{{playbook_dir}}/"
-    flat: true
+# - name: fetch content file
+#   fetch:
+#     src: /home/panupload/content/{{ newfile }}
+#     dest: "{{playbook_dir}}/"
+#     flat: true
 
 - name: upload to S3
   aws_s3:
     aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
     aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
     bucket: hagen-bootstrap-bckt
-    object: "/content/{{ newfile }}"
-    src: "{{playbook_dir}}/{{ newfile }}"
+    object: /content/{{ newfile }}
+    src: /home/panupload/content/{{ newfile }}
     mode: put
     ignore_nonexistent_bucket: True
 
