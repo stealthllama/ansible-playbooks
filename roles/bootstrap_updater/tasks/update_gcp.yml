@@ -4,6 +4,7 @@
     bucket: "{{ bucket_id }}"
     src: "{{ source_dir }}/{{ newfile }}"
     dest: "/content/{{ newfile }}"
+    action: upload
   when: newfile != oldfile
 
 - name: delete the old file
