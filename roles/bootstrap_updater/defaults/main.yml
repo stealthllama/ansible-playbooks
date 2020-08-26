@@ -1,0 +1,11 @@
+---
+# defaults file for bootstrap-updater
+
+meta_files:
+  - app.meta
+  - av.meta
+  - content.meta
+  - wf2.meta
+  - wf3.meta
+
+purge_source: false

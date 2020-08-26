@@ -1,0 +1,29 @@
+- name: read current meta file
+  slurp:
+    src: "{{ source_dir }}/{{ item }}"
+  register: result
+
+- set_fact:
+    newfile: "{{ result['content'] | b64decode | trim }}"
+
+- name: read old meta file
+  slurp:
+    src: "{{ source_dir }}/{{ item }}.old"
+  register: result
+
+- set_fact:
+    oldfile: "{{ result['content'] | b64decode | trim }}"
+
+- name: update S3 bucket
+  include_tasks: update_s3.yml
+  when: cloud_storage == "s3"
+
+- name: update GCP bucket
+  include_tasks: update_gcp.yml
+  when: cloud_storage == "gcp"
+
+- name: mark the file as processed
+  copy:
+    src: "{{ source_dir }}/{{ item }}"
+    dest: "{{ source_dir }}/{{ item }}.old"
+    remote_src: yes

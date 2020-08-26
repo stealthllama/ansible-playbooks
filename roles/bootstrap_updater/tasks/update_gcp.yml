@@ -1,0 +1,15 @@
+- name: upload the new file
+  gcp_storage_object:
+    authkind: serviceaccount
+    bucket: "{{ bucket_id }}"
+    src: "{{ source_dir }}/{{ newfile }}"
+    dest: "/content/{{ newfile }}"
+  when: newfile != oldfile
+
+- name: delete the old file
+  gcp_storage_object:
+    authkind: serviceaccount
+    bucket: "{{ bucket_id }}"
+    dest: "/content/{{ oldfile }}"
+    state: absent
+  when: newfile != oldfile

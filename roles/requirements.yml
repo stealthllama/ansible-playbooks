@@ -1,3 +1,0 @@
-# Add role from Ansible Galaxy
-- src: mprahl.lets-encrypt-route-53
-- src: paloaltonetworks.paloaltonetworks

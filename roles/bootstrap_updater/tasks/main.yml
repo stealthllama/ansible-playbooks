@@ -1,0 +1,19 @@
+---
+# tasks file for bootstrap-updater
+
+- name: process meta files
+  include_tasks: process_files.yml
+  loop: "{{ meta_files }}"
+
+- name: find the source files
+  find:
+    paths: "{{ source_dir }}"
+    patterns: "panup*"
+  register: files_to_delete
+
+- name: purge the source files
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ files_to_delete.files.path }}"
+  when: purge_source
