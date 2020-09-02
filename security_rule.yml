@@ -11,8 +11,8 @@
       username: '{{ username }}'
       password: '{{ password }}'
       
-  roles:
-    - role: paloaltonetworks.paloaltonetworks
+  collections:
+   - paloaltonetworks.panos
 
   tasks:
   - name: Process the rule
