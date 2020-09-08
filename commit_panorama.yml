@@ -8,9 +8,7 @@
     credentials:
       ip_address: "{{ ip_address }}"
       username: "{{ username }}"
-      password: "{{ password }}"
-    dg_list: ["Lab Firewalls", "Demo_DG"]
-      
+      password: "{{ password }}"      
 
   collections:
     - paloaltonetworks.panos
