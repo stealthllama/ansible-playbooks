@@ -1,5 +1,5 @@
 ---
-- name: Commit hack on Panorama
+- name: Commit device groups on Panorama
   hosts: all
   connection: local
   gather_facts: False
@@ -16,7 +16,7 @@
     - paloaltonetworks.panos
     
   tasks:
-    - name: commit loop
+    - name: commit device_groups
       panos_commit:
         provider: "{{ credentials }}"
         admins: ["{{ username }}"]
@@ -31,13 +31,3 @@
     - name: dump var
       debug:
         var: commit_output
-
-#     - name: Wait for commit
-#       async_status:
-#         jid: "{{ item.ansible_job_id }}"
-#       register: async_commit_result
-#       until: async_commit_result.finished
-#       retries: 300
-#       loop: "{{ commit_output.results }}"
-#       loop_control:
-#         loop_var: item
