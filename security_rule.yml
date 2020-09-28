@@ -11,12 +11,12 @@
       username: '{{ username }}'
       password: '{{ password }}'
       
-  collections:
-   - paloaltonetworks.panos
+#   collections:
+#    - paloaltonetworks.panos
 
   tasks:
   - name: Process the rule
-    panos_security_rule:
+    paloaltonetworks.panos.panos_security_rule:
       provider: '{{ credentials }}'
       device_group: '{{ rule_devicegroup }}'
       rule_name: '{{ rule_name }}'
